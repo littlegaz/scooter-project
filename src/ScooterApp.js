@@ -4,19 +4,28 @@ const User = require("./User")
 
 class ScooterApp extends User{
   // ScooterApp code here
-  constructor(stations, registeredUsers, username, password, age, loggedIn){
-    super(username, password, age, loggedIn)
-    this.stations = stations
-    this.registeredUsers = registeredUsers
+  constructor(){
+    this.stations = {
+      "Gedling Station": [],
+      "Nottingham Station": [],
+      "West Bridgford Station": []
+    };
+    this.registeredUsers = {}
   }
 
-  registeredUser(username, password, age){
-    if (age < 18){throw Error `too young to register`}
-    else if (username === this.username){throw Error `already registered`}
-    else console.log(`user has been registered`)
-  }
+  registerUser(username, password, age){
+    if (age < 18){throw new Error ("too young to register")}
+    else if (this.registerUser.hasOwnProperty(username)){throw new Error ("Username already registered")}
+    else this.registeredUsers[username] = {password: password, age: age};
+    }
 
   loginUser(username, password){
+    const user = this.registeredUsers[username];
+    if (user && user.password === password){console.log("user has been logged in")}
+    else {throw new Error ("no such user is logged in")}
+  }
+
+  logoutUser(username){
     
   }
 }
